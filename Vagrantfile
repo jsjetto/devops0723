@@ -1,7 +1,11 @@
 Vagrant.configure("2") do |config|
         
-        config.vm.provision "shell", path: "scripts.sh"
- 
+    config.vm.provision "shell", path: "scripts.sh"
+    config.vm.provision "ansible_local" do |ansible|
+        ansible.playbook = "playbook.yml"
+        ansible.install_mode = "pip"
+    end
+
         config.vm.define "controle" do |controle|
             controle.vm.box = "shekeriev/debian-11"
             controle.vm.hostname = "controle"
